@@ -230,6 +230,48 @@
     border-color: var(--accent-gold);
     color: #ffffff;
   }
+
+  /* Style Variant Pills */
+  .variant-selector-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .variant-pill-label {
+    font-size: 0.74rem;
+    font-weight: 800;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+
+  .variant-pill {
+    background: #1e293b;
+    color: #cbd5e1;
+    border: 1px solid var(--border-color);
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .variant-pill:active {
+    transform: scale(0.96);
+  }
+
+  .variant-pill.active {
+    background: #0284c7;
+    border-color: var(--accent-blue);
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+  }
+
   .script-prompter-box {
     background: #060a12;
     border-left: 6px solid var(--accent-green);
@@ -389,16 +431,22 @@
   <div class="section-header">
     <div class="section-title">Step 1: Immediate Post-Keynote Appreciation</div>
     <div class="approach-tabs" data-section="1">
-      <button class="approach-tab active" data-approach="A" type="button">Approach A: Formal Academic</button>
-      <button class="approach-tab" data-approach="B" type="button">Approach B: Warm &amp; Uplifting</button>
-      <button class="approach-tab" data-approach="C" type="button">Approach C: Crisp &amp; Direct</button>
+      <button class="approach-tab active" data-approach="academic" type="button">🎓 Academic &amp; Formal</button>
+      <button class="approach-tab" data-approach="inviting" type="button">🤝 Warm &amp; Inviting</button>
+      <button class="approach-tab" data-approach="cheerful" type="button">✨ Cheerful &amp; Energizing</button>
     </div>
   </div>
-  <div class="approach-desc" id="desc-1">Approach A: Dignified, measured institutional praise. Best for standard academic delivery.</div>
+  <div class="variant-selector-row" data-section="1">
+    <span class="variant-pill-label">Choose Phrasing Option:</span>
+    <button class="variant-pill active" data-option="1" type="button">Option 1 (Direct)</button>
+    <button class="variant-pill" data-option="2" type="button">Option 2 (Expansive)</button>
+    <button class="variant-pill" data-option="3" type="button">Option 3 (Reflective)</button>
+  </div>
+  <div class="approach-desc" id="desc-1">Academic &amp; Formal: Measured, institutional tone reflecting university conference protocols.</div>
   
   <div class="script-prompter-box" id="prompter-1"></div>
-  <div class="action-cue">
-    🎙️ <strong>STAGE CUE:</strong> Deliver immediately upon final slide conclusion. Allow 2–3 seconds of virtual applause reaction before moving to Step 2.
+  <div class="action-cue" id="cue-1">
+    🎙️ <strong>STAGE CUE:</strong> Deliver immediately upon final slide conclusion. Allow 2–3 seconds for delegates to absorb before opening the floor.
   </div>
 </div>
 
@@ -407,34 +455,46 @@
   <div class="section-header">
     <div class="section-title">Step 2: Opening the Q&amp;A Floor</div>
     <div class="approach-tabs" data-section="2">
-      <button class="approach-tab active" data-approach="A" type="button">Approach A: Standard Protocol</button>
-      <button class="approach-tab" data-approach="B" type="button">Approach B: Engaging &amp; Interactive</button>
-      <button class="approach-tab" data-approach="C" type="button">Approach C: Time-Tight Focus</button>
+      <button class="approach-tab active" data-approach="academic" type="button">🎓 Academic &amp; Formal</button>
+      <button class="approach-tab" data-approach="inviting" type="button">🤝 Warm &amp; Inviting</button>
+      <button class="approach-tab" data-approach="cheerful" type="button">✨ Cheerful &amp; Energizing</button>
     </div>
   </div>
-  <div class="approach-desc" id="desc-2">Approach A: Clear, standard instructions guiding delegates between webcam unmutes and chat.</div>
+  <div class="variant-selector-row" data-section="2">
+    <span class="variant-pill-label">Choose Phrasing Option:</span>
+    <button class="variant-pill active" data-option="1" type="button">Option 1 (Dual Channel)</button>
+    <button class="variant-pill" data-option="2" type="button">Option 2 (Webcam Priority)</button>
+    <button class="variant-pill" data-option="3" type="button">Option 3 (Chat Priority)</button>
+  </div>
+  <div class="approach-desc" id="desc-2">Academic &amp; Formal: Standard instructions outlining both chat submission and live microphone handover.</div>
 
   <div class="script-prompter-box" id="prompter-2"></div>
-  <div class="action-cue">
-    🖥️ <strong>STAGE CUE:</strong> Scan the Zoom participants panel for raised hands while keeping one eye on the chat stream.
+  <div class="action-cue" id="cue-2">
+    🖥️ <strong>STAGE CUE:</strong> Scan the Zoom participants panel for raised hands while glancing at the incoming chat stream.
   </div>
 </div>
 
 <!-- Section 3: Introducing Live Questions -->
 <div class="section-card" id="card-3" style="display:none;">
   <div class="section-header">
-    <div class="section-title">Step 3: Introducing Questions Live</div>
+    <div class="section-title">Step 3: Introducing Live Questions</div>
     <div class="approach-tabs" data-section="3">
-      <button class="approach-tab active" data-approach="A" type="button">Approach A: Reading from Chat</button>
-      <button class="approach-tab" data-approach="B" type="button">Approach B: Live Webcam / Mic Handover</button>
-      <button class="approach-tab" data-approach="C" type="button">Approach C: Bridging Questions</button>
+      <button class="approach-tab active" data-approach="academic" type="button">🎓 Academic &amp; Formal</button>
+      <button class="approach-tab" data-approach="inviting" type="button">🤝 Warm &amp; Inviting</button>
+      <button class="approach-tab" data-approach="cheerful" type="button">✨ Cheerful &amp; Energizing</button>
     </div>
   </div>
-  <div class="approach-desc" id="desc-3">Approach A: Clear attribution to participant and institution before reading their text question.</div>
+  <div class="variant-selector-row" data-section="3">
+    <span class="variant-pill-label">Question Source:</span>
+    <button class="variant-pill active" data-option="1" type="button">Option 1 (From Chat)</button>
+    <button class="variant-pill" data-option="2" type="button">Option 2 (Live Mic / Raised Hand)</button>
+    <button class="variant-pill" data-option="3" type="button">Option 3 (Bridging 2nd Question)</button>
+  </div>
+  <div class="approach-desc" id="desc-3">Academic &amp; Formal: Clear scholarly attribution with respectful handovers to the speaker.</div>
 
   <div class="script-prompter-box" id="prompter-3"></div>
-  <div class="action-cue">
-    ⚠️ <strong>EMCEE TIP:</strong> Do not paraphrase scientific terms. Read the delegate’s wording deliberately at ~110 WPM.
+  <div class="action-cue" id="cue-3">
+    ⚠️ <strong>EMCEE TIP:</strong> Do not rephrase technical or chemical terms. Read the delegate’s wording deliberately at ~110 WPM.
   </div>
 </div>
 
@@ -443,16 +503,22 @@
   <div class="section-header">
     <div class="section-title">Step 4: Zero Questions Fallback (Silence Breaker)</div>
     <div class="approach-tabs" data-section="4">
-      <button class="approach-tab active" data-approach="A" type="button">Approach A: Comprehensive Praise Pivot</button>
-      <button class="approach-tab" data-approach="B" type="button">Approach B: Moderator Seed Question</button>
-      <button class="approach-tab" data-approach="C" type="button">Approach C: Swift Official Fallback</button>
+      <button class="approach-tab active" data-approach="academic" type="button">🎓 Academic &amp; Formal</button>
+      <button class="approach-tab" data-approach="inviting" type="button">🤝 Warm &amp; Inviting</button>
+      <button class="approach-tab" data-approach="cheerful" type="button">✨ Cheerful &amp; Energizing</button>
     </div>
   </div>
-  <div class="approach-desc" id="desc-4">Approach A: Graceful 5-second pivot attributing silence to how thorough the speaker's presentation was.</div>
+  <div class="variant-selector-row" data-section="4">
+    <span class="variant-pill-label">Strategy Option:</span>
+    <button class="variant-pill active" data-option="1" type="button">Option 1 (Comprehensive Praise Pivot)</button>
+    <button class="variant-pill" data-option="2" type="button">Option 2 (Moderator Seed Question)</button>
+    <button class="variant-pill" data-option="3" type="button">Option 3 (Clean Schedule Advance)</button>
+  </div>
+  <div class="approach-desc" id="desc-4">Academic &amp; Formal: Graceful 5-second pivot attributing silence to the thoroughness of the address.</div>
 
   <div class="script-prompter-box" id="prompter-4"></div>
-  <div class="action-cue">
-    🛡️ <strong>ZERO AWKWARDNESS RULE:</strong> Never say "Does anyone have a question?" twice. Wait 5 seconds; if clear, deliver the pivot immediately.
+  <div class="action-cue" id="cue-4">
+    🛡️ <strong>ZERO AWKWARDNESS RULE:</strong> Never ask "Are there any questions?" more than once. If 5 seconds pass with silence, deliver the pivot smoothly.
   </div>
 </div>
 
@@ -461,15 +527,21 @@
   <div class="section-header">
     <div class="section-title">Step 5: Time-Expired Q&amp;A Wrap</div>
     <div class="approach-tabs" data-section="5">
-      <button class="approach-tab active" data-approach="A" type="button">Approach A: Gracious Schedule Cut</button>
-      <button class="approach-tab" data-approach="B" type="button">Approach B: Final 30-Sec Quick Question</button>
-      <button class="approach-tab" data-approach="C" type="button">Approach C: Strict Hard-Stop</button>
+      <button class="approach-tab active" data-approach="academic" type="button">🎓 Academic &amp; Formal</button>
+      <button class="approach-tab" data-approach="inviting" type="button">🤝 Warm &amp; Inviting</button>
+      <button class="approach-tab" data-approach="cheerful" type="button">✨ Cheerful &amp; Energizing</button>
     </div>
   </div>
-  <div class="approach-desc" id="desc-5">Approach A: Polite and appreciative wrap directing unanswered questions to email proceedings.</div>
+  <div class="variant-selector-row" data-section="5">
+    <span class="variant-pill-label">Timing Condition:</span>
+    <button class="variant-pill active" data-option="1" type="button">Option 1 (Gracious Clock Cutoff)</button>
+    <button class="variant-pill" data-option="2" type="button">Option 2 (Rapid 30-Sec Final Ask)</button>
+    <button class="variant-pill" data-option="3" type="button">Option 3 (Hard Schedule Stop)</button>
+  </div>
+  <div class="approach-desc" id="desc-5">Academic &amp; Formal: Dignified conclusion directing unaddressed queries to the speaker's correspondence email.</div>
 
   <div class="script-prompter-box" id="prompter-5"></div>
-  <div class="action-cue">
+  <div class="action-cue" id="cue-5">
     ⏱️ <strong>SCHEDULE DISCIPLINE:</strong> Deploy this card as soon as the session hits the scheduled cutoff to protect upcoming agenda items.
   </div>
 </div>
@@ -506,19 +578,23 @@
   var speakers = {
     eko: {
       name: "Prof. Dr. Eko Agus Suyono",
-      phonetic: "[EH-koh AH-goos soo-YOH-noh]"
+      phonetic: "[EH-koh AH-goos soo-YOH-noh]",
+      topic: "microalgae biorefineries and bioenergy systems"
     },
     fatimah: {
       name: "Prof. Dr. Is Fatimah",
-      phonetic: "[EES fah-TEE-mah]"
+      phonetic: "[EES fah-TEE-mah]",
+      topic: "waste-derived nanomaterials and green catalysis"
     },
     singh: {
       name: "Prof. Dr. Ram Chandra Singh",
-      phonetic: "[RAAM CHUN-drah SING]"
+      phonetic: "[RAAM CHUN-drah SING]",
+      topic: "applied science, materials physics, and solar energy technologies"
     },
     haddad: {
       name: "Prof. Dr. Moawiya A. Haddad",
-      phonetic: "[moh-AH-wee-yah hah-DAAD]"
+      phonetic: "[moh-AH-wee-yah hah-DAAD]",
+      topic: "food processing, food safety, and the metabolic impact of ultra-processed foods"
     }
   };
 
@@ -526,97 +602,186 @@
   var currentStep = 1;
   var currentFontSize = 1.35;
 
+  // Selected Style and Option state per section (1 through 5)
+  var sectionState = {
+    1: { style: "academic", option: "1" },
+    2: { style: "academic", option: "1" },
+    3: { style: "academic", option: "1" },
+    4: { style: "academic", option: "1" },
+    5: { style: "academic", option: "1" }
+  };
+
+  /* Complete Multi-Style Script Bank: 3 Styles x 3 Options = 9 distinct choices per step */
   var scriptBank = {
+    // STEP 1: APPRECIATION
     1: {
-      A: {
-        desc: "Approach A: Dignified, measured institutional praise. Best for standard academic delivery.",
-        text: "Thank you very much, <span class='speaker-slot'>{{name}}</span>, <span class='pz'>/</span> for an exceptionally insightful <span class='pz'>/</span> and thought-provoking presentation. <span class='pz'>//</span> Your research establishes a distinguished benchmark for our conference today. <span class='pz'>//</span> Let us express our sincere appreciation <span class='pz'>/</span> with a warm virtual round of applause."
+      academic: {
+        desc: "🎓 Academic & Formal: Dignified, measured institutional praise reflecting university conference standards.",
+        options: {
+          1: "Thank you very much, <span class='speaker-slot'>{{name}}</span>, <span class='pz'>/</span> for an exceptionally insightful <span class='pz'>/</span> and thought-provoking presentation. <span class='pz'>//</span> Your research establishes a distinguished benchmark <span class='pz'>/</span> for our conference proceedings today. <span class='pz'>//</span> Let us express our sincere appreciation <span class='pz'>/</span> with a warm virtual round of applause.",
+          2: "On behalf of the organizing committee, <span class='pz'>/</span> we convey our utmost gratitude to <span class='speaker-slot'>{{name}}</span> <span class='pz'>/</span> for this comprehensive and authoritative discourse. <span class='pz'>//</span> The depth of scholarly inquiry shared here <span class='pz'>/</span> offers invaluable direction for applied scientific research. <span class='pz'>//</span> Ladies and gentlemen, <span class='pz'>/</span> let us warmly thank our distinguished speaker.",
+          3: "Our sincere appreciation to <span class='speaker-slot'>{{name}}</span> <span class='pz'>/</span> for an illuminating address on {{topic}}. <span class='pz'>//</span> Your valuable perspectives bridge theoretical rigor <span class='pz'>/</span> with urgent real-world imperatives. <span class='pz'>//</span> Delegates, <span class='pz'>/</span> let us show our appreciation through our virtual reaction icons."
+        }
       },
-      B: {
-        desc: "Approach B: Warm, dynamic, and engaging. Great for re-energizing the audience.",
-        text: "What a captivating and enlightening address! <span class='pz'>//</span> Thank you so much, <span class='speaker-slot'>{{name}}</span>, <span class='pz'>/</span> for sharing your pioneering insights and real-world findings with us today. <span class='pz'>//</span> Virtual delegates, <span class='pz'>/</span> let us flood the chat and reactions bar with applause for our distinguished speaker!"
+      inviting: {
+        desc: "🤝 Warm & Inviting: Approachable, gracious, and welcoming. Brings the audience and speaker closer together.",
+        options: {
+          1: "Thank you so much, <span class='speaker-slot'>{{name}}</span>, <span class='pz'>/</span> for such a generous, <span class='pz'>/</span> enriching, <span class='pz'>/</span> and beautifully structured presentation. <span class='pz'>//</span> You have given our delegates a tremendous amount to think about, <span class='pz'>/</span> and we are truly grateful for your presence with us today. <span class='pz'>//</span> Let us give our speaker a heartfelt virtual applause!",
+          2: "What a truly engaging and accessible address! <span class='pz'>//</span> Thank you, <span class='speaker-slot'>{{name}}</span>, <span class='pz'>/</span> for translating such complex research into clear, actionable, and inspiring insights. <span class='pz'>//</span> It has been an absolute pleasure listening to your talk this morning.",
+          3: "A wonderful and inspiring contribution to ASRIC 2026. <span class='pz'>//</span> Thank you kindly, <span class='speaker-slot'>{{name}}</span>, <span class='pz'>/</span> for sharing your time, your dedication, <span class='pz'>/</span> and your extensive practical knowledge with our community today."
+        }
       },
-      C: {
-        desc: "Approach C: Crisp, direct, and time-conscious. Use when the presentation ran long.",
-        text: "Our sincere thanks to <span class='speaker-slot'>{{name}}</span> <span class='pz'>/</span> for that rich and comprehensive address. <span class='pz'>//</span> In the interest of maximizing dialogue, <span class='pz'>/</span> we will transition directly into our discussion."
+      cheerful: {
+        desc: "✨ Cheerful & Energizing: High-spirited, modern, and enthusiastic. Great for lifting screen fatigue.",
+        options: {
+          1: "What a captivating address to light up our conference stage! <span class='pz'>//</span> A huge thank you to <span class='speaker-slot'>{{name}}</span> <span class='pz'>/</span> for delivering such dynamic, high-impact findings! <span class='pz'>//</span> Delegates, <span class='pz'>/</span> let us flood the Zoom chat box and reactions with clap emojis for our keynote speaker right now!",
+          2: "Brilliant presentation! <span class='pz'>//</span> Thank you so much, <span class='speaker-slot'>{{name}}</span>, <span class='pz'>/</span> for kicking off our discussion with such wonderful energy and innovative clarity. <span class='pz'>//</span> Let’s keep that momentum going as we head straight into the discussion!",
+          3: "Fantastic insights, Professor! <span class='pz'>//</span> That was thoroughly engaging from the opening slide right through to your conclusions. <span class='pz'>//</span> On behalf of all our virtual attendees, <span class='pz'>/</span> thank you for an outstanding session!"
+        }
       }
     },
+
+    // STEP 2: OPENING THE Q&A FLOOR
     2: {
-      A: {
-        desc: "Approach A: Clear, standard instructions guiding delegates between webcam unmutes and chat.",
-        text: "We will now open the floor <span class='pz'>/</span> for our Question and Answer session. <span class='pz'>//</span> If you wish to address our speaker live, <span class='pz'>/</span> please click the <strong>‘Raise Hand’</strong> icon in your reactions bar, <span class='pz'>/</span> and our technical team will prompt you to unmute. <span class='pz'>//</span> Alternatively, <span class='pz'>/</span> you are warmly invited to submit your questions <span class='pz'>/</span> directly into the Zoom chat box, <span class='pz'>/</span> noting your name and institution."
+      academic: {
+        desc: "🎓 Academic & Formal: Structured, systematic instructions balancing spoken and text inquiries.",
+        options: {
+          1: "We will now open the floor <span class='pz'>/</span> for our Question and Answer session. <span class='pz'>//</span> Delegates wishing to address our speaker live <span class='pz'>/</span> may raise their virtual hand in the reactions panel, <span class='pz'>/</span> and our secretariat will prompt your microphone to unmute. <span class='pz'>//</span> Alternatively, <span class='pz'>/</span> you are warmly invited to submit your questions directly into the Zoom chat, <span class='pz'>/</span> stating your name and institution.",
+          2: "The floor is now officially open for academic discourse. <span class='pz'>//</span> If you would like to pose your question personally via audio, <span class='pz'>/</span> please select <strong>‘Raise Hand’</strong> and our technical team will spotlight your feed. <span class='pz'>//</span> Written inquiries are equally welcome in our text chat stream.",
+          3: "We now transition to our discussion block. <span class='pz'>//</span> For optimal record in our proceedings, <span class='pz'>/</span> delegates submitting written inquiries are kindly requested to include their institutional affiliation <span class='pz'>/</span> alongside their question in the chat box."
+        }
       },
-      B: {
-        desc: "Approach B: Conversational, interactive, inviting delegates to show their webcams.",
-        text: "We now open the floor for questions, <span class='pz'>/</span> and we would love to see and hear from you live! <span class='pz'>//</span> If you’re ready to speak with our speaker, <span class='pz'>/</span> hit <strong>‘Raise Hand’</strong> and switch on your camera so we can bring you to the main stage. <span class='pz'>//</span> You can also post your thoughts in the chat at any time."
+      inviting: {
+        desc: "🤝 Warm & Inviting: Conversational and hospitable. Encourages shy delegates to participate.",
+        options: {
+          1: "We now open the floor for questions, <span class='pz'>/</span> and we would love to hear directly from you! <span class='pz'>//</span> Whether you would prefer to ask your question out loud on your microphone, <span class='pz'>/</span> or type it into the chat box for me to read, <span class='pz'>/</span> the floor is yours. <span class='pz'>//</span> Don't hesitate to raise your hand!",
+          2: "Now is your chance to engage directly with our speaker! <span class='pz'>//</span> If you’re ready to speak with <span class='speaker-slot'>{{name}}</span>, <span class='pz'>/</span> please click <strong>‘Raise Hand’</strong> and feel free to switch on your camera so we can see you. <span class='pz'>//</span> We welcome all observations and reflections.",
+          3: "Our speaker has kindly set aside time for your thoughts and questions. <span class='pz'>//</span> Please drop your questions into the chat box right now, <span class='pz'>/</span> and we will make sure our speaker hears them."
+        }
       },
-      C: {
-        desc: "Approach C: Rapid-fire framing designed for short 5-minute Q&A blocks.",
-        text: "We have approximately five minutes allocated for questions. <span class='pz'>//</span> To accommodate as many inquiries as possible, <span class='pz'>/</span> we invite our delegates to post their questions succinctly into the Zoom chat box now, <span class='pz'>/</span> or raise your hand for a brief live question."
+      cheerful: {
+        desc: "✨ Cheerful & Energizing: Interactive, lively, inviting quick engagement.",
+        options: {
+          1: "Alright delegates, <span class='pz'>/</span> it is your turn to take the spotlight! <span class='pz'>//</span> Hit that <strong>‘Raise Hand’</strong> button if you’d like to jump on mic with our speaker, <span class='pz'>/</span> or drop your sharpest questions straight into the chat box right now! <span class='pz'>//</span> Let’s hear what you think!",
+          2: "We’ve got a vibrant crowd online, <span class='pz'>/</span> so let’s make the most of this Q&A! <span class='pz'>//</span> Turn your webcam on, unmute your mic, <span class='pz'>/</span> or write your question in the chat—let’s dive right into your questions!",
+          3: "Time to open the floor! <span class='pz'>//</span> Let’s get those questions rolling in the chat. <span class='pz'>//</span> Who’s ready to take our first question for <span class='speaker-slot'>{{name}}</span> today?"
+        }
       }
     },
+
+    // STEP 3: INTRODUCING LIVE QUESTIONS
     3: {
-      A: {
-        desc: "Approach A: Clear attribution to participant and institution before reading their text question.",
-        text: "We have our first question from <span style='color:var(--accent-gold);'>[Name]</span> <span class='pz'>/</span> from <span style='color:var(--accent-gold);'>[Institution]</span>, <span class='pz'>/</span> who asks: <span class='pz'>//</span> <em>‘[Read text slowly and clearly]’</em> <span class='pz'>//</span> Professor, we invite your reflections."
+      academic: {
+        desc: "🎓 Academic & Formal: Precise scholarly attribution with crisp vocal pacing (~110 WPM).",
+        options: {
+          1: "We have our first question from the chat stream, <span class='pz'>/</span> submitted by <span style='color:var(--accent-gold);'>[Name]</span> <span class='pz'>/</span> from <span style='color:var(--accent-gold);'>[Institution]</span>, <span class='pz'>/</span> who asks: <span class='pz'>//</span> <em>‘[Read question deliberately]’</em> <span class='pz'>//</span> Professor, we invite your reflections.",
+          2: "I note a raised hand from <span style='color:var(--accent-gold);'>[Name]</span>. <span class='pz'>//</span> Technical team, please facilitate their microphone access. <span class='pz'>//</span> <span style='color:var(--accent-gold);'>[Name]</span>, please proceed with your question for our speaker.",
+          3: "Thank you for that thorough response, Professor. <span class='pz'>//</span> Connecting directly with that point, <span class='pz'>/</span> our next inquiry from <span style='color:var(--accent-gold);'>[Name]</span> asks: <span class='pz'>//</span> <em>‘[Read second question]’</em>"
+        }
       },
-      B: {
-        desc: "Approach B: Handing over cleanly to a raised hand with camera/mic activation cues.",
-        text: "I see a raised hand from <span style='color:var(--accent-gold);'>[Name]</span>. <span class='pz'>//</span> Please unmute your microphone <span class='pz'>/</span> and feel welcome to turn on your webcam. <span class='pz'>//</span> The floor is yours."
+      inviting: {
+        desc: "🤝 Warm & Inviting: Friendly and conversational, warmly welcoming the questioner.",
+        options: {
+          1: "A great question has just come through the chat from <span style='color:var(--accent-gold);'>[Name]</span> at <span style='color:var(--accent-gold);'>[Institution]</span>: <span class='pz'>//</span> <em>‘[Read question warmly]’</em> <span class='pz'>//</span> Professor, how would you respond to this perspective?",
+          2: "We have a raised hand from <span style='color:var(--accent-gold);'>[Name]</span>! <span class='pz'>//</span> Please feel very welcome to unmute your audio and turn on your camera. <span class='pz'>/</span> The floor is yours, please go ahead.",
+          3: "Thank you, Professor, that was so insightful. <span class='pz'>//</span> Following up on that topic, <span class='pz'>/</span> let’s bring in another question from our audience: <span class='pz'>//</span> <em>‘[Read next question]’</em>"
+        }
       },
-      C: {
-        desc: "Approach C: Bridging between questions smoothly while maintaining academic momentum.",
-        text: "Thank you for that thorough response, Professor. <span class='pz'>//</span> Connecting directly with that theme, <span class='pz'>/</span> our next question from the chat asks: <span class='pz'>//</span> <em>‘[Read second question]’</em>"
+      cheerful: {
+        desc: "✨ Cheerful & Energizing: Upbeat and vibrant, maintaining high conversational pace.",
+        options: {
+          1: "We have a fantastic question in the chat from <span style='color:var(--accent-gold);'>[Name]</span>! <span class='pz'>//</span> They want to know: <span class='pz'>/</span> <em>‘[Read question with enthusiasm]’</em> <span class='pz'>//</span> Over to you, Professor!",
+          2: "I see a hand up from <span style='color:var(--accent-gold);'>[Name]</span> ready to speak live! <span class='pz'>//</span> Go ahead and unmute your mic—we're excited to hear from you!",
+          3: "Excellent answer! <span class='pz'>//</span> Let's keep the questions moving—here's another thought-provoking one from the chat: <span class='pz'>//</span> <em>‘[Read next question]’</em>"
+        }
       }
     },
+
+    // STEP 4: ZERO QUESTIONS FALLBACK
     4: {
-      A: {
-        desc: "Approach A: Graceful 5-second pivot attributing silence to how thorough the speaker was.",
-        text: "It appears our distinguished speaker’s address <span class='pz'>/</span> was remarkably comprehensive, <span class='pz'>/</span> leaving our delegates with plenty to reflect upon! <span class='pz'>//</span> Should questions arise as you reflect today, <span class='pz'>/</span> you are welcome to connect with the speaker directly via email <span class='pz'>/</span> as provided in our conference proceedings. <span class='pz'>//</span> With that, <span class='pz'>/</span> we shall proceed smoothly to our next session."
+      academic: {
+        desc: "🎓 Academic & Formal: Elegant 5-second pivot attributing silence to comprehensive clarity.",
+        options: {
+          1: "It appears our distinguished speaker’s address <span class='pz'>/</span> was remarkably comprehensive, <span class='pz'>/</span> leaving our delegates with ample insight to reflect upon! <span class='pz'>//</span> Should questions arise following this session, <span class='pz'>/</span> delegates are welcome to correspond directly via the email listed in our proceedings. <span class='pz'>//</span> We shall proceed smoothly to our next agenda item.",
+          2: "While our delegates reflect upon these detailed findings, <span class='pz'>/</span> allow me to pose a brief moderator question, Professor: <span class='pz'>//</span> <em>Looking at practical implementation, what do you view as the primary operational hurdle in scaling this research into real-world application?</em>",
+          3: "As there are no immediate questions from the floor at this time, <span class='pz'>/</span> we will proceed directly with our next scheduled session. <span class='pz'>//</span> Delegates may direct further inquiries to our speaker via email later. <span class='pz'>/</span> Thank you."
+        }
       },
-      B: {
-        desc: "Approach B: Asking a pre-planned moderator prompt while delegates formulate questions.",
-        text: "While our delegates compile their thoughts in the chat, <span class='pz'>/</span> allow me to pose a brief question, Professor: <span class='pz'>//</span> <em>From your viewpoint, what is the most significant practical hurdle in scaling this research into commercial adoption?</em>"
+      inviting: {
+        desc: "🤝 Warm & Inviting: Reassuring and comfortable, completely eliminating awkwardness.",
+        options: {
+          1: "Your presentation covered the topic so thoroughly <span class='pz'>/</span> that our delegates are taking a quiet moment to absorb all that rich information! <span class='pz'>//</span> If you think of a question later today, <span class='pz'>/</span> you can always reach out to <span class='speaker-slot'>{{name}}</span> through the contact details provided in our conference guide. <span class='pz'>//</span> Thank you so much, Professor.",
+          2: "While everyone is gathering their thoughts, <span class='pz'>/</span> I’d love to ask a quick question myself, Professor: <span class='pz'>//</span> <em>What would be your primary recommendation for researchers who are just beginning their work in this field?</em>",
+          3: "It looks like your explanations were crystal clear to our audience! <span class='pz'>//</span> We will give our delegates time to reflect and move seamlessly to our next segment. <span class='pz'>/</span> Thank you once again."
+        }
       },
-      C: {
-        desc: "Approach C: Swift official fallback (Prescribed verbatim in conference protocol).",
-        text: "If there are no further questions from the floor, <span class='pz'>/</span> we will proceed directly with our next scheduled session. <span class='pz'>//</span> Delegates may direct lingering questions to the speaker via email later. <span class='pz'>/</span> Thank you."
+      cheerful: {
+        desc: "✨ Cheerful & Energizing: Swift, light-hearted pivot that keeps the event running crisp.",
+        options: {
+          1: "You explained everything so brilliantly that there’s not a single doubt left in the room! <span class='pz'>//</span> If inspiration strikes you later, delegates, <span class='pz'>/</span> drop the speaker an email via our conference portal. <span class='pz'>//</span> With that, <span class='pz'>/</span> let’s keep our program rolling!",
+          2: "While the chat is warming up, <span class='pz'>/</span> let me throw a quick question your way, Professor: <span class='pz'>//</span> <em>In just one sentence, what excites you most about the future of this research?</em>",
+          3: "Clear, concise, and complete! <span class='pz'>//</span> With no pending questions, <span class='pz'>/</span> let’s keep our energy high and advance directly to our next exciting segment!"
+        }
       }
     },
+
+    // STEP 5: TIME-EXPIRED WRAP
     5: {
-      A: {
-        desc: "Approach A: Polite and appreciative wrap directing unanswered questions to email proceedings.",
-        text: "That brings us to the conclusion <span class='pz'>/</span> of our allocated time for this Q&A session. <span class='pz'>//</span> To delegates whose questions were not reached live, <span class='pz'>/</span> we warmly encourage you to reach out via email. <span class='pz'>//</span> Thank you once again, <span class='speaker-slot'>{{name}}</span>, <span class='pz'>/</span> for your generous time, leadership, <span class='pz'>/</span> and valuable contribution to ASRIC 2026."
+      academic: {
+        desc: "🎓 Academic & Formal: Strict academic timekeeper discipline protecting upcoming breakout sessions.",
+        options: {
+          1: "That brings us to the formal conclusion <span class='pz'>/</span> of our allocated time for this Q&A session. <span class='pz'>//</span> To delegates whose inquiries could not be addressed live due to time constraints, <span class='pz'>/</span> we warmly encourage you to connect via email. <span class='pz'>//</span> Thank you once again, <span class='speaker-slot'>{{name}}</span>, <span class='pz'>/</span> for your generous leadership and valuable contribution to ASRIC 2026.",
+          2: "In deference to our conference schedule, <span class='pz'>/</span> we have time for one final, concise response. <span class='pz'>//</span> Professor, in just 30 seconds, <span class='pz'>/</span> could you address: <em>‘[Read brief question]’</em>?",
+          3: "Due to our running schedule, <span class='pz'>/</span> we must now bring this discussion to a close. <span class='pz'>//</span> Our deepest appreciation to <span class='speaker-slot'>{{name}}</span> for an exceptional masterclass today. <span class='pz'>//</span> Delegates, please stand by as we transition to our next session."
+        }
       },
-      B: {
-        desc: "Approach B: Squeezing in one final question with a 30-second rapid-answer boundary.",
-        text: "We have time for one final, quick question before our schedule cutoff. <span class='pz'>//</span> Professor, in just 30 seconds, <span class='pz'>/</span> could you address: <em>‘[Read question]’</em>?"
+      inviting: {
+        desc: "🤝 Warm & Inviting: Gracious, polite, and appreciative wrap prioritizing participant satisfaction.",
+        options: {
+          1: "Time flies when the conversation is this engaging! <span class='pz'>//</span> We have reached the end of our allotted time for Q&A. <span class='pz'>//</span> If your question wasn’t reached live, <span class='pz'>/</span> please don’t worry—you can reach our speaker directly via the email in your delegate pack. <span class='pz'>//</span> Thank you so much, <span class='speaker-slot'>{{name}}</span>, for spending this time with us!",
+          2: "We could easily continue this discussion for another hour, <span class='pz'>/</span> but we must honor our program schedule. <span class='pz'>//</span> A heartfelt thank you to <span class='speaker-slot'>{{name}}</span> for answering so many questions with such great warmth and clarity.",
+          3: "Thank you to everyone who submitted questions! <span class='pz'>//</span> We must now wrap up this Q&A to allow our next session to begin on time. <span class='pz'>//</span> Thank you once again, Professor, for sharing your expertise so generously with us today."
+        }
       },
-      C: {
-        desc: "Approach C: Strict schedule hard-stop to protect upcoming parallel breakouts.",
-        text: "Due to our running schedule, <span class='pz'>/</span> we must draw this Q&A session to a close. <span class='pz'>//</span> Our deepest thanks to <span class='speaker-slot'>{{name}}</span> for an exceptional masterclass today. <span class='pz'>//</span> Delegates, please stand by as we transition directly to our next segment."
+      cheerful: {
+        desc: "✨ Cheerful & Energizing: High-tempo, celebratory wrap that leaves the audience inspired.",
+        options: {
+          1: "And that’s time on the clock! <span class='pz'>//</span> What a wonderful, lively discussion! <span class='pz'>//</span> Huge thanks to <span class='speaker-slot'>{{name}}</span> for sharing such brilliant answers with us today! <span class='pz'>//</span> Delegates, let’s send another wave of virtual applause through the chat before we move to our next stop!",
+          2: "Our timer has hit zero, <span class='pz'>/</span> and we have to keep our show on schedule! <span class='pz'>//</span> If we missed your question, be sure to send it over via email. <span class='pz'>//</span> Thank you immensely, Professor, for an unforgettable keynote!",
+          3: "That wraps up an incredible Q&A session! <span class='pz'>//</span> Thank you, <span class='speaker-slot'>{{name}}</span>, for your time and wisdom today! <span class='pz'>//</span> Stay tuned, everyone, because our next session is starting right now!"
+        }
       }
     }
   };
-  function renderScript(sectionNum, approachKey) {
-    if (!scriptBank[sectionNum] || !scriptBank[sectionNum][approachKey]) {
-      return;
-    }
-    var item = scriptBank[sectionNum][approachKey];
+
+  /* Render Function combining Step, Style, and Option */
+  function renderScript(sectionNum) {
+    var state = sectionState[sectionNum];
+    if (!state) return;
+
+    var secBank = scriptBank[sectionNum];
+    if (!secBank || !secBank[state.style]) return;
+
+    var styleObj = secBank[state.style];
+    var optionText = styleObj.options[state.option] || styleObj.options[1];
     var descEl = document.getElementById("desc-" + sectionNum);
     var boxEl = document.getElementById("prompter-" + sectionNum);
     var spk = speakers[currentSpeaker] || speakers.eko;
 
     if (descEl) {
-      descEl.innerText = item.desc;
+      descEl.innerText = styleObj.desc;
     }
+
     if (boxEl) {
-      var filled = item.text.split("{{name}}").join(spk.name);
+      var filled = optionText
+        .split("{{name}}").join(spk.name)
+        .split("{{topic}}").join(spk.topic);
       boxEl.innerHTML = '"' + filled + '"';
       boxEl.style.fontSize = currentFontSize.toFixed(2) + "rem";
     }
   }
 
+  /* Step Navigation (1 to 5) */
   function showStep(stepNum) {
     currentStep = stepNum;
     for (var i = 1; i <= 5; i++) {
@@ -630,6 +795,7 @@
       var s = parseInt(stepBtns[j].getAttribute("data-step"), 10);
       stepBtns[j].classList.toggle("active", s === stepNum);
     }
+    renderScript(stepNum);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -660,6 +826,7 @@
     });
   }
 
+  /* Approach Style Tabs (Academic, Inviting, Cheerful) */
   var tabGroups = document.querySelectorAll(".approach-tabs");
   for (var tg = 0; tg < tabGroups.length; tg++) {
     (function(tabGroup) {
@@ -671,12 +838,35 @@
             buttons[k].classList.remove("active");
           }
           this.classList.add("active");
-          var app = this.getAttribute("data-approach");
-          renderScript(sec, app);
+          var chosenStyle = this.getAttribute("data-approach");
+          sectionState[sec].style = chosenStyle;
+          renderScript(sec);
         });
       }
     })(tabGroups[tg]);
   }
+
+  /* Option Variants Pills (Option 1, Option 2, Option 3) */
+  var pillGroups = document.querySelectorAll(".variant-selector-row");
+  for (var pg = 0; pg < pillGroups.length; pg++) {
+    (function(pillGroup) {
+      var sec = pillGroup.getAttribute("data-section");
+      var pills = pillGroup.querySelectorAll(".variant-pill");
+      for (var pIdx = 0; pIdx < pills.length; pIdx++) {
+        pills[pIdx].addEventListener("click", function() {
+          for (var k = 0; k < pills.length; k++) {
+            pills[k].classList.remove("active");
+          }
+          this.classList.add("active");
+          var chosenOption = this.getAttribute("data-option");
+          sectionState[sec].option = chosenOption;
+          renderScript(sec);
+        });
+      }
+    })(pillGroups[pg]);
+  }
+
+  /* Speaker Switcher */
   var speakerChips = document.querySelectorAll(".speaker-chip");
   for (var sc = 0; sc < speakerChips.length; sc++) {
     speakerChips[sc].addEventListener("click", function() {
@@ -697,13 +887,12 @@
       }
 
       for (var s = 1; s <= 5; s++) {
-        var activeTab = document.querySelector('.approach-tabs[data-section="' + s + '"] .approach-tab.active');
-        var app = activeTab ? activeTab.getAttribute("data-approach") : "A";
-        renderScript(s, app);
+        renderScript(s);
       }
     });
   }
 
+  /* Font Scaling */
   var btnZoomIn = document.getElementById("btnZoomIn");
   var btnZoomOut = document.getElementById("btnZoomOut");
 
@@ -731,6 +920,7 @@
     });
   }
 
+  /* Timer Engine */
   var timerSeconds = 600;
   var timerInterval = null;
   var timerClock = document.getElementById("timerClock");
@@ -788,6 +978,7 @@
     });
   }
 
+  /* Modal Dialog */
   var modal = document.getElementById("phoneticsModal");
   var openPhoneticsBtn = document.getElementById("btnQuickPhonetics");
   var closePhoneticsBtn = document.getElementById("btnCloseModal");
@@ -812,8 +1003,9 @@
     });
   }
 
+  // Initial render of all steps
   for (var k = 1; k <= 5; k++) {
-    renderScript(k, "A");
+    renderScript(k);
   }
 })();
 </script>
