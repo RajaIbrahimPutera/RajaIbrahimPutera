@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>ASRIC 2026 — Keynote Q&amp;A Interactive Console</title>
+<style>
+  :root {
+    --bg-dark: #090d16;
+    --card-bg: #131d31;
+    --card-active: #1e293b;
+    --border-color: #2a3a54;
+    --accent-gold: #f59e0b;
+    --accent-gold-soft: rgba(245, 158, 11, 0.15);
+    --accent-blue: #38bdf8;
+    --accent-blue-soft: rgba(56, 189, 248, 0.12);
+    --accent-green: #34d399;
+    --accent-red: #f87171;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --pause-gold: #fbbf24;
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 12px 16px 90px;
+    -webkit-text-size-adjust: 100%;
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  /* Sticky Top Header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(9, 13, 22, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 2px solid var(--accent-gold);
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .header-brand h1 {
+    font-size: 1.05rem;
+    margin: 0;
+    color: var(--accent-gold);
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .header-brand .subtitle {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  button, .btn {
+    touch-action: manipulation;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .tool-btn {
+    background: #0284c7;
+    color: #fff;
+    border: 1px solid var(--accent-blue);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: transform 0.05s ease, filter 0.15s ease;
+  }
+
+  .tool-btn:active {
+    filter: brightness(1.2);
+    transform: scale(0.97);
+  }
+
+  .speaker-selector-bar {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .selector-label {
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    font-weight: 800;
+    letter-spacing: 0.8px;
+  }
+
+  .speaker-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+  .speaker-chip {
+    background: #1e293b;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    transition: all 0.15s ease;
+  }
+
+  .speaker-chip.active {
+    background: #0369a1;
+    color: #ffffff;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+  }
+
+  .speaker-phonetic-badge {
+    background: var(--accent-gold-soft);
+    border: 1px solid var(--accent-gold);
+    color: #fef08a;
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-weight: 700;
+  }
+
+  .step-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .step-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 8px 6px;
+    border-radius: 7px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-align: center;
+    transition: all 0.15s ease;
+  }
+
+  .step-btn.active {
+    background: #1e293b;
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+    border-bottom-width: 4px;
+  }
+
+  .section-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--accent-blue);
+  }
+
+  .approach-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .approach-tab {
+    background: #0f172a;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 6px 11px;
+    border-radius: 6px;
+    font-size: 0.76rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.15s ease;
+  }
+
+  .approach-tab.active {
+    background: #b45309;
+    border-color: var(--accent-gold);
+    color: #ffffff;
+  }
+  .script-prompter-box {
+    background: #060a12;
+    border-left: 6px solid var(--accent-green);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-top: 10px;
+    line-height: 1.68;
+    font-size: 1.35rem;
+    color: #ffffff;
+    min-height: 90px;
+    max-width: 60ch;
+  }
+
+  .approach-desc {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .pz {
+    color: var(--pause-gold);
+    font-weight: 800;
+    padding: 0 4px;
+    background: rgba(245, 158, 11, 0.12);
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+
+  .speaker-slot {
+    color: var(--accent-blue);
+    font-weight: 800;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .action-cue {
+    background: rgba(245, 158, 11, 0.12);
+    border-left: 4px solid var(--accent-gold);
+    color: #fde047;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 8px 12px;
+    margin-top: 10px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .footer-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(9, 13, 22, 0.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 2px solid var(--border-color);
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 200;
+    gap: 10px;
+  }
+
+  .timer-cluster {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .countdown-display {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 1.15rem;
+    font-weight: 800;
+    background: #0284c7;
+    border: 1px solid var(--accent-blue);
+    padding: 5px 12px;
+    border-radius: 6px;
+    color: #fff;
+    min-width: 85px;
+    text-align: center;
+  }
+
+  .countdown-display.warning {
+    background: #991b1b;
+    border-color: var(--accent-red);
+    animation: pulse 1s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 500;
+    padding: 16px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-content {
+    background: var(--card-bg);
+    border: 2px solid var(--accent-blue);
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 650px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <h1>ASRIC 2026 — Keynote Q&amp;A Delivery Console</h1>
+    <div class="subtitle">17 Sept 2026 | Live Post-Lecture Handovers &amp; Moderation</div>
+  </div>
+  
+  <div class="header-controls">
+    <button class="tool-btn" id="btnZoomOut" type="button">A−</button>
+    <button class="tool-btn" id="btnZoomIn" type="button">A+</button>
+    <button class="tool-btn" id="btnTimerToggle" style="background:#059669; border-color:#34d399;" type="button">⏱️ Start 10m Q&amp;A</button>
+    <button class="tool-btn" id="btnQuickPhonetics" style="background:#475569; border-color:#64748b;" type="button">📖 Phonetics</button>
+  </div>
+</header>
+
+<div class="speaker-selector-bar">
+  <span class="selector-label">Target Keynote:</span>
+  <div class="speaker-chips">
+    <button class="speaker-chip active" data-speaker="eko" type="button">Keynote 1: Prof. Eko (UGM)</button>
+    <button class="speaker-chip" data-speaker="fatimah" type="button">Keynote 2: Prof. Is Fatimah (UII)</button>
+    <button class="speaker-chip" data-speaker="singh" type="button">Keynote 3: Prof. Ram Chandra (India)</button>
+    <button class="speaker-chip" data-speaker="haddad" type="button">Keynote 4: Prof. Moawiya (Jordan)</button>
+  </div>
+  <div class="speaker-phonetic-badge" id="speakerPhoneticDisplay">
+    🗣️ <strong id="spkNameText">Prof. Dr. Eko Agus Suyono</strong> <span id="spkPhoneText">[EH-koh AH-goos soo-YOH-noh]</span>
+  </div>
+</div>
+
+<div class="step-nav">
+  <button class="step-btn active" data-step="1" type="button">1. Appreciation</button>
+  <button class="step-btn" data-step="2" type="button">2. Open Floor</button>
+  <button class="step-btn" data-step="3" type="button">3. Intro Question</button>
+  <button class="step-btn" data-step="4" type="button">4. Zero Qs Pivot</button>
+  <button class="step-btn" data-step="5" type="button">5. Time-Up Wrap</button>
+</div>
+
+<!-- Section 1: Immediate Post-Keynote Appreciation -->
+<div class="section-card" id="card-1">
+  <div class="section-header">
+    <div class="section-title">Step 1: Immediate Post-Keynote Appreciation</div>
+    <div class="approach-tabs" data-section="1">
+      <button class="approach-tab active" data-approach="A" type="button">Approach A: Formal Academic</button>
+      <button class="approach-tab" data-approach="B" type="button">Approach B: Warm &amp; Uplifting</button>
+      <button class="approach-tab" data-approach="C" type="button">Approach C: Crisp &amp; Direct</button>
+    </div>
+  </div>
+  <div class="approach-desc" id="desc-1">Approach A: Dignified, measured institutional praise. Best for standard academic delivery.</div>
+  
+  <div class="script-prompter-box" id="prompter-1"></div>
+  <div class="action-cue">
+    🎙️ <strong>STAGE CUE:</strong> Deliver immediately upon final slide conclusion. Allow 2–3 seconds of virtual applause reaction before moving to Step 2.
+  </div>
+</div>
+
+<!-- Section 2: Opening the Q&A Floor -->
+<div class="section-card" id="card-2" style="display:none;">
+  <div class="section-header">
+    <div class="section-title">Step 2: Opening the Q&amp;A Floor</div>
+    <div class="approach-tabs" data-section="2">
+      <button class="approach-tab active" data-approach="A" type="button">Approach A: Standard Protocol</button>
+      <button class="approach-tab" data-approach="B" type="button">Approach B: Engaging &amp; Interactive</button>
+      <button class="approach-tab" data-approach="C" type="button">Approach C: Time-Tight Focus</button>
+    </div>
+  </div>
+  <div class="approach-desc" id="desc-2">Approach A: Clear, standard instructions guiding delegates between webcam unmutes and chat.</div>
+
+  <div class="script-prompter-box" id="prompter-2"></div>
+  <div class="action-cue">
+    🖥️ <strong>STAGE CUE:</strong> Scan the Zoom participants panel for raised hands while keeping one eye on the chat stream.
+  </div>
+</div>
+
+<!-- Section 3: Introducing Live Questions -->
+<div class="section-card" id="card-3" style="display:none;">
+  <div class="section-header">
+    <div class="section-title">Step 3: Introducing Questions Live</div>
+    <div class="approach-tabs" data-section="3">
+      <button class="approach-tab active" data-approach="A" type="button">Approach A: Reading from Chat</button>
+      <button class="approach-tab" data-approach="B" type="button">Approach B: Live Webcam / Mic Handover</button>
+      <button class="approach-tab" data-approach="C" type="button">Approach C: Bridging Questions</button>
+    </div>
+  </div>
+  <div class="approach-desc" id="desc-3">Approach A: Clear attribution to participant and institution before reading their text question.</div>
+
+  <div class="script-prompter-box" id="prompter-3"></div>
+  <div class="action-cue">
+    ⚠️ <strong>EMCEE TIP:</strong> Do not paraphrase scientific terms. Read the delegate’s wording deliberately at ~110 WPM.
+  </div>
+</div>
+
+<!-- Section 4: Zero Questions Fallback -->
+<div class="section-card" id="card-4" style="display:none;">
+  <div class="section-header">
+    <div class="section-title">Step 4: Zero Questions Fallback (Silence Breaker)</div>
+    <div class="approach-tabs" data-section="4">
+      <button class="approach-tab active" data-approach="A" type="button">Approach A: Comprehensive Praise Pivot</button>
+      <button class="approach-tab" data-approach="B" type="button">Approach B: Moderator Seed Question</button>
+      <button class="approach-tab" data-approach="C" type="button">Approach C: Swift Official Fallback</button>
+    </div>
+  </div>
+  <div class="approach-desc" id="desc-4">Approach A: Graceful 5-second pivot attributing silence to how thorough the speaker's presentation was.</div>
+
+  <div class="script-prompter-box" id="prompter-4"></div>
+  <div class="action-cue">
+    🛡️ <strong>ZERO AWKWARDNESS RULE:</strong> Never say "Does anyone have a question?" twice. Wait 5 seconds; if clear, deliver the pivot immediately.
+  </div>
+</div>
+
+<!-- Section 5: Time-Expired Wrap -->
+<div class="section-card" id="card-5" style="display:none;">
+  <div class="section-header">
+    <div class="section-title">Step 5: Time-Expired Q&amp;A Wrap</div>
+    <div class="approach-tabs" data-section="5">
+      <button class="approach-tab active" data-approach="A" type="button">Approach A: Gracious Schedule Cut</button>
+      <button class="approach-tab" data-approach="B" type="button">Approach B: Final 30-Sec Quick Question</button>
+      <button class="approach-tab" data-approach="C" type="button">Approach C: Strict Hard-Stop</button>
+    </div>
+  </div>
+  <div class="approach-desc" id="desc-5">Approach A: Polite and appreciative wrap directing unanswered questions to email proceedings.</div>
+
+  <div class="script-prompter-box" id="prompter-5"></div>
+  <div class="action-cue">
+    ⏱️ <strong>SCHEDULE DISCIPLINE:</strong> Deploy this card as soon as the session hits the scheduled cutoff to protect upcoming agenda items.
+  </div>
+</div>
+
+<div class="footer-bar">
+  <div class="timer-cluster">
+    <span class="countdown-display" id="timerClock">10:00</span>
+    <button class="tool-btn" id="btnResetTimer" style="background:#334155; border-color:#475569;" type="button">Reset</button>
+  </div>
+  
+  <div style="display:flex; gap:8px;">
+    <button class="tool-btn" id="btnPrevStep" type="button">◀ Prev Step</button>
+    <button class="tool-btn" id="btnNextStep" style="background:#0284c7;" type="button">Next Step ▶</button>
+  </div>
+</div>
+
+<div class="modal" id="phoneticsModal" role="dialog">
+  <div class="modal-content">
+    <h3 style="color: var(--accent-gold); margin-top:0;">📖 Keynote Speaker Quick Phonetics</h3>
+    <div style="font-size:0.95rem; line-height:1.6; color:#e2e8f0;">
+      <p>• <strong>Prof. Dr. Eko Agus Suyono:</strong> <code>[EH-koh AH-goos soo-YOH-noh]</code> (Universitas Gadjah Mada — <code>[GAH-jah MAH-dah]</code>)</p>
+      <p>• <strong>Prof. Dr. Is Fatimah:</strong> <code>[EES fah-TEE-mah]</code> (Universitas Islam Indonesia — <code>UII</code>)</p>
+      <p>• <strong>Prof. Dr. Ram Chandra Singh:</strong> <code>[RAAM CHUN-drah SING]</code> (Sharda University, India)</p>
+      <p>• <strong>Prof. Dr. Moawiya A. Haddad:</strong> <code>[moh-AH-wee-yah hah-DAAD]</code> (Al-Balqa Applied University — <code>[al-BAHL-kah]</code>)</p>
+    </div>
+    <button class="tool-btn" id="btnCloseModal" style="width:100%; margin-top:12px; background:#334155;" type="button">Close Reference</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  "use strict";
+
+  var speakers = {
+    eko: {
+      name: "Prof. Dr. Eko Agus Suyono",
+      phonetic: "[EH-koh AH-goos soo-YOH-noh]"
+    },
+    fatimah: {
+      name: "Prof. Dr. Is Fatimah",
+      phonetic: "[EES fah-TEE-mah]"
+    },
+    singh: {
+      name: "Prof. Dr. Ram Chandra Singh",
+      phonetic: "[RAAM CHUN-drah SING]"
+    },
+    haddad: {
+      name: "Prof. Dr. Moawiya A. Haddad",
+      phonetic: "[moh-AH-wee-yah hah-DAAD]"
+    }
+  };
+
+  var currentSpeaker = "eko";
+  var currentStep = 1;
+  var currentFontSize = 1.35;
+
+  var scriptBank = {
+    1: {
+      A: {
+        desc: "Approach A: Dignified, measured institutional praise. Best for standard academic delivery.",
+        text: "Thank you very much, <span class='speaker-slot'>{{name}}</span>, <span class='pz'>/</span> for an exceptionally insightful <span class='pz'>/</span> and thought-provoking presentation. <span class='pz'>//</span> Your research establishes a distinguished benchmark for our conference today. <span class='pz'>//</span> Let us express our sincere appreciation <span class='pz'>/</span> with a warm virtual round of applause."
+      },
+      B: {
+        desc: "Approach B: Warm, dynamic, and engaging. Great for re-energizing the audience.",
+        text: "What a captivating and enlightening address! <span class='pz'>//</span> Thank you so much, <span class='speaker-slot'>{{name}}</span>, <span class='pz'>/</span> for sharing your pioneering insights and real-world findings with us today. <span class='pz'>//</span> Virtual delegates, <span class='pz'>/</span> let us flood the chat and reactions bar with applause for our distinguished speaker!"
+      },
+      C: {
+        desc: "Approach C: Crisp, direct, and time-conscious. Use when the presentation ran long.",
+        text: "Our sincere thanks to <span class='speaker-slot'>{{name}}</span> <span class='pz'>/</span> for that rich and comprehensive address. <span class='pz'>//</span> In the interest of maximizing dialogue, <span class='pz'>/</span> we will transition directly into our discussion."
+      }
+    },
+    2: {
+      A: {
+        desc: "Approach A: Clear, standard instructions guiding delegates between webcam unmutes and chat.",
+        text: "We will now open the floor <span class='pz'>/</span> for our Question and Answer session. <span class='pz'>//</span> If you wish to address our speaker live, <span class='pz'>/</span> please click the <strong>‘Raise Hand’</strong> icon in your reactions bar, <span class='pz'>/</span> and our technical team will prompt you to unmute. <span class='pz'>//</span> Alternatively, <span class='pz'>/</span> you are warmly invited to submit your questions <span class='pz'>/</span> directly into the Zoom chat box, <span class='pz'>/</span> noting your name and institution."
+      },
+      B: {
+        desc: "Approach B: Conversational, interactive, inviting delegates to show their webcams.",
+        text: "We now open the floor for questions, <span class='pz'>/</span> and we would love to see and hear from you live! <span class='pz'>//</span> If you’re ready to speak with our speaker, <span class='pz'>/</span> hit <strong>‘Raise Hand’</strong> and switch on your camera so we can bring you to the main stage. <span class='pz'>//</span> You can also post your thoughts in the chat at any time."
+      },
+      C: {
+        desc: "Approach C: Rapid-fire framing designed for short 5-minute Q&A blocks.",
+        text: "We have approximately five minutes allocated for questions. <span class='pz'>//</span> To accommodate as many inquiries as possible, <span class='pz'>/</span> we invite our delegates to post their questions succinctly into the Zoom chat box now, <span class='pz'>/</span> or raise your hand for a brief live question."
+      }
+    },
+    3: {
+      A: {
+        desc: "Approach A: Clear attribution to participant and institution before reading their text question.",
+        text: "We have our first question from <span style='color:var(--accent-gold);'>[Name]</span> <span class='pz'>/</span> from <span style='color:var(--accent-gold);'>[Institution]</span>, <span class='pz'>/</span> who asks: <span class='pz'>//</span> <em>‘[Read text slowly and clearly]’</em> <span class='pz'>//</span> Professor, we invite your reflections."
+      },
+      B: {
+        desc: "Approach B: Handing over cleanly to a raised hand with camera/mic activation cues.",
+        text: "I see a raised hand from <span style='color:var(--accent-gold);'>[Name]</span>. <span class='pz'>//</span> Please unmute your microphone <span class='pz'>/</span> and feel welcome to turn on your webcam. <span class='pz'>//</span> The floor is yours."
+      },
+      C: {
+        desc: "Approach C: Bridging between questions smoothly while maintaining academic momentum.",
+        text: "Thank you for that thorough response, Professor. <span class='pz'>//</span> Connecting directly with that theme, <span class='pz'>/</span> our next question from the chat asks: <span class='pz'>//</span> <em>‘[Read second question]’</em>"
+      }
+    },
+    4: {
+      A: {
+        desc: "Approach A: Graceful 5-second pivot attributing silence to how thorough the speaker was.",
+        text: "It appears our distinguished speaker’s address <span class='pz'>/</span> was remarkably comprehensive, <span class='pz'>/</span> leaving our delegates with plenty to reflect upon! <span class='pz'>//</span> Should questions arise as you reflect today, <span class='pz'>/</span> you are welcome to connect with the speaker directly via email <span class='pz'>/</span> as provided in our conference proceedings. <span class='pz'>//</span> With that, <span class='pz'>/</span> we shall proceed smoothly to our next session."
+      },
+      B: {
+        desc: "Approach B: Asking a pre-planned moderator prompt while delegates formulate questions.",
+        text: "While our delegates compile their thoughts in the chat, <span class='pz'>/</span> allow me to pose a brief question, Professor: <span class='pz'>//</span> <em>From your viewpoint, what is the most significant practical hurdle in scaling this research into commercial adoption?</em>"
+      },
+      C: {
+        desc: "Approach C: Swift official fallback (Prescribed verbatim in conference protocol).",
+        text: "If there are no further questions from the floor, <span class='pz'>/</span> we will proceed directly with our next scheduled session. <span class='pz'>//</span> Delegates may direct lingering questions to the speaker via email later. <span class='pz'>/</span> Thank you."
+      }
+    },
+    5: {
+      A: {
+        desc: "Approach A: Polite and appreciative wrap directing unanswered questions to email proceedings.",
+        text: "That brings us to the conclusion <span class='pz'>/</span> of our allocated time for this Q&A session. <span class='pz'>//</span> To delegates whose questions were not reached live, <span class='pz'>/</span> we warmly encourage you to reach out via email. <span class='pz'>//</span> Thank you once again, <span class='speaker-slot'>{{name}}</span>, <span class='pz'>/</span> for your generous time, leadership, <span class='pz'>/</span> and valuable contribution to ASRIC 2026."
+      },
+      B: {
+        desc: "Approach B: Squeezing in one final question with a 30-second rapid-answer boundary.",
+        text: "We have time for one final, quick question before our schedule cutoff. <span class='pz'>//</span> Professor, in just 30 seconds, <span class='pz'>/</span> could you address: <em>‘[Read question]’</em>?"
+      },
+      C: {
+        desc: "Approach C: Strict schedule hard-stop to protect upcoming parallel breakouts.",
+        text: "Due to our running schedule, <span class='pz'>/</span> we must draw this Q&A session to a close. <span class='pz'>//</span> Our deepest thanks to <span class='speaker-slot'>{{name}}</span> for an exceptional masterclass today. <span class='pz'>//</span> Delegates, please stand by as we transition directly to our next segment."
+      }
+    }
+  };
+  function renderScript(sectionNum, approachKey) {
+    if (!scriptBank[sectionNum] || !scriptBank[sectionNum][approachKey]) {
+      return;
+    }
+    var item = scriptBank[sectionNum][approachKey];
+    var descEl = document.getElementById("desc-" + sectionNum);
+    var boxEl = document.getElementById("prompter-" + sectionNum);
+    var spk = speakers[currentSpeaker] || speakers.eko;
+
+    if (descEl) {
+      descEl.innerText = item.desc;
+    }
+    if (boxEl) {
+      var filled = item.text.split("{{name}}").join(spk.name);
+      boxEl.innerHTML = '"' + filled + '"';
+      boxEl.style.fontSize = currentFontSize.toFixed(2) + "rem";
+    }
+  }
+
+  function showStep(stepNum) {
+    currentStep = stepNum;
+    for (var i = 1; i <= 5; i++) {
+      var card = document.getElementById("card-" + i);
+      if (card) {
+        card.style.display = (i === stepNum) ? "block" : "none";
+      }
+    }
+    var stepBtns = document.querySelectorAll(".step-btn");
+    for (var j = 0; j < stepBtns.length; j++) {
+      var s = parseInt(stepBtns[j].getAttribute("data-step"), 10);
+      stepBtns[j].classList.toggle("active", s === stepNum);
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  var stepButtons = document.querySelectorAll(".step-btn");
+  for (var sb = 0; sb < stepButtons.length; sb++) {
+    stepButtons[sb].addEventListener("click", function() {
+      var step = parseInt(this.getAttribute("data-step"), 10);
+      showStep(step);
+    });
+  }
+
+  var prevBtn = document.getElementById("btnPrevStep");
+  var nextBtn = document.getElementById("btnNextStep");
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", function() {
+      if (currentStep > 1) {
+        showStep(currentStep - 1);
+      }
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", function() {
+      if (currentStep < 5) {
+        showStep(currentStep + 1);
+      }
+    });
+  }
+
+  var tabGroups = document.querySelectorAll(".approach-tabs");
+  for (var tg = 0; tg < tabGroups.length; tg++) {
+    (function(tabGroup) {
+      var sec = tabGroup.getAttribute("data-section");
+      var buttons = tabGroup.querySelectorAll(".approach-tab");
+      for (var bIdx = 0; bIdx < buttons.length; bIdx++) {
+        buttons[bIdx].addEventListener("click", function() {
+          for (var k = 0; k < buttons.length; k++) {
+            buttons[k].classList.remove("active");
+          }
+          this.classList.add("active");
+          var app = this.getAttribute("data-approach");
+          renderScript(sec, app);
+        });
+      }
+    })(tabGroups[tg]);
+  }
+  var speakerChips = document.querySelectorAll(".speaker-chip");
+  for (var sc = 0; sc < speakerChips.length; sc++) {
+    speakerChips[sc].addEventListener("click", function() {
+      for (var k = 0; k < speakerChips.length; k++) {
+        speakerChips[k].classList.remove("active");
+      }
+      this.classList.add("active");
+      currentSpeaker = this.getAttribute("data-speaker");
+      
+      var spk = speakers[currentSpeaker] || speakers.eko;
+      var nameEl = document.getElementById("spkNameText");
+      var phoneEl = document.getElementById("spkPhoneText");
+      if (nameEl) {
+        nameEl.innerText = spk.name;
+      }
+      if (phoneEl) {
+        phoneEl.innerText = spk.phonetic;
+      }
+
+      for (var s = 1; s <= 5; s++) {
+        var activeTab = document.querySelector('.approach-tabs[data-section="' + s + '"] .approach-tab.active');
+        var app = activeTab ? activeTab.getAttribute("data-approach") : "A";
+        renderScript(s, app);
+      }
+    });
+  }
+
+  var btnZoomIn = document.getElementById("btnZoomIn");
+  var btnZoomOut = document.getElementById("btnZoomOut");
+
+  if (btnZoomIn) {
+    btnZoomIn.addEventListener("click", function() {
+      if (currentFontSize < 2.4) {
+        currentFontSize += 0.15;
+        var boxes = document.querySelectorAll(".script-prompter-box");
+        for (var i = 0; i < boxes.length; i++) {
+          boxes[i].style.fontSize = currentFontSize.toFixed(2) + "rem";
+        }
+      }
+    });
+  }
+
+  if (btnZoomOut) {
+    btnZoomOut.addEventListener("click", function() {
+      if (currentFontSize > 0.9) {
+        currentFontSize -= 0.15;
+        var boxes = document.querySelectorAll(".script-prompter-box");
+        for (var i = 0; i < boxes.length; i++) {
+          boxes[i].style.fontSize = currentFontSize.toFixed(2) + "rem";
+        }
+      }
+    });
+  }
+
+  var timerSeconds = 600;
+  var timerInterval = null;
+  var timerClock = document.getElementById("timerClock");
+  var timerBtn = document.getElementById("btnTimerToggle");
+  var resetTimerBtn = document.getElementById("btnResetTimer");
+
+  function updateTimerDisplay() {
+    if (!timerClock) return;
+    var m = Math.floor(timerSeconds / 60);
+    var s = timerSeconds % 60;
+    timerClock.innerText = (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+    timerClock.classList.toggle("warning", timerSeconds < 120 && timerSeconds > 0);
+  }
+
+  if (timerBtn) {
+    timerBtn.addEventListener("click", function() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        timerBtn.innerText = "▶ Resume Timer";
+        timerBtn.style.background = "#0284c7";
+      } else {
+        timerInterval = setInterval(function() {
+          if (timerSeconds > 0) {
+            timerSeconds--;
+            updateTimerDisplay();
+          } else {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timerBtn.innerText = "Time Expired!";
+            timerBtn.style.background = "#991b1b";
+          }
+        }, 1000);
+        timerBtn.innerText = "⏸ Pause Timer";
+        timerBtn.style.background = "#b45309";
+      }
+    });
+  }
+
+  if (resetTimerBtn) {
+    resetTimerBtn.addEventListener("click", function() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      timerSeconds = 600;
+      updateTimerDisplay();
+      if (timerBtn) {
+        timerBtn.innerText = "⏱️ Start 10m Q&A";
+        timerBtn.style.background = "#059669";
+      }
+      if (timerClock) {
+        timerClock.classList.remove("warning");
+      }
+    });
+  }
+
+  var modal = document.getElementById("phoneticsModal");
+  var openPhoneticsBtn = document.getElementById("btnQuickPhonetics");
+  var closePhoneticsBtn = document.getElementById("btnCloseModal");
+
+  if (openPhoneticsBtn && modal) {
+    openPhoneticsBtn.addEventListener("click", function() {
+      modal.style.display = "flex";
+    });
+  }
+
+  if (closePhoneticsBtn && modal) {
+    closePhoneticsBtn.addEventListener("click", function() {
+      modal.style.display = "none";
+    });
+  }
+
+  if (modal) {
+    modal.addEventListener("click", function(e) {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  }
+
+  for (var k = 1; k <= 5; k++) {
+    renderScript(k, "A");
+  }
+})();
+</script>
+</body>
+</html>
